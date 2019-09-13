@@ -107,7 +107,12 @@ func (c otConn) QueryContext(ctx context.Context, query string, args []driver.Na
 			}
 		}
 
-		return queryerCtx.QueryContext(ctx, query, args)
+		rows, err := queryerCtx.QueryContext(ctx, query, args)
+		if err != nil {
+			return nil, err
+		}
+
+		return otRows{parent: rows, ctx: ctx, tracer: c.tracer}, nil
 	}
 
 	return nil, driver.ErrSkip
