@@ -27,11 +27,11 @@ func (r otRows) Close() error {
 }
 
 func (r otRows) Next(dest []driver.Value) error {
-	span := opentracing.SpanFromContext(r.ctx)
+	// span := opentracing.SpanFromContext(r.ctx)
 
-	span = r.tracer.StartSpan("sql:rows_next", opentracing.ChildOf(span.Context()))
-	_ = opentracing.ContextWithSpan(r.ctx, span)
-	defer span.Finish()
+	// span = r.tracer.StartSpan("sql:rows_next", opentracing.ChildOf(span.Context()))
+	// _ = opentracing.ContextWithSpan(r.ctx, span)
+	// defer span.Finish()
 
 	return r.parent.Next(dest)
 }
